@@ -26,7 +26,7 @@ export class LoginComponent {
       this.apiService.getApi().subscribe((data) => {
         console.log(data);
         // Faire quelque chose après la connexion réussie, par exemple rediriger l'utilisateur vers une autre page
-        this.router.navigate(['/accueil']);
+        this.router.navigate(['/account']);
       });
     });
   }
