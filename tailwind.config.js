@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       colors: {
         "navbr": '#D0D1D2',
+        "textBgHome": '#42896C',
       }
     },
   },
