@@ -1,30 +1,31 @@
 import { Component } from '@angular/core';
-import { ApiService } from '../api.service';
+import { RegisterService } from '../register.service';
+import { User } from '../user';
 
-interface FormData {
-  nom: string;
-  prenom: string;
-  email: string;
-  password: string;
-}
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
+
 export class RegisterComponent {
-  constructor(private apiService: ApiService) {}
+  firstName = '';
+  lastName = '';
+  email = '';
+  password = '';
 
-  onSubmit(formData: FormData) {
+  constructor(private registerService: RegisterService) {}
 
-    const nom = formData.nom;
-    const prenom = formData.prenom;
-    const email = formData.email;
-    const password = formData.password;
-
-    this.apiService.getApi().subscribe((data) => {
-      console.log(data);
-      
-    })
+  onSubmit(event: Event): void {
+    event.preventDefault();
+    const user: User = {
+      firstname: this.firstName,
+      lastname: this.lastName,
+      email: this.email,
+      password: this.password
+    };
+    this.registerService.signup(user).subscribe();
+    console.log(user)
   }
 }
