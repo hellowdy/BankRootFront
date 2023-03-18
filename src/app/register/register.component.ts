@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { RegisterService } from '../register.service';
-import { User } from '../user';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ApiService } from '../api.service';
+
 
 
 @Component({
@@ -10,22 +11,22 @@ import { User } from '../user';
 })
 
 export class RegisterComponent {
-  firstName = '';
-  lastName = '';
-  email = '';
-  password = '';
+  constructor(private apiService: ApiService) {}
 
-  constructor(private registerService: RegisterService) {}
+  form = new FormGroup({
+    "firstname": new FormControl("", Validators.required),
+    "lastname": new FormControl("", Validators.required),
+    "email": new FormControl("", Validators.required),
+    "password": new FormControl("", Validators.required),
+  });
 
-  onSubmit(event: Event): void {
-    event.preventDefault();
-    const user: User = {
-      firstname: this.firstName,
-      lastname: this.lastName,
-      email: this.email,
-      password: this.password
-    };
-    this.registerService.signup(user).subscribe();
-    console.log(user)
+  onSubmit(){
+    const user = {
+      name: this.form.value.firstname,
+      lastname: this.form.value.lastname,
+      mail: this.form.value.email,
+      password: this.form.value.password
+    }
+    this.apiService.createUser(JSON.stringify(user)).subscribe((response) => console.log(response));
   }
 }
