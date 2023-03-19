@@ -1,0 +1,18 @@
+{
+    "/user":{
+        "target": "http://152.228.163.78:3000/",
+        "secure": false
+    },
+    "/auth/register":{
+        "target": "http://152.228.163.78:3000/",
+        "secure": false
+    },
+    "/login":{
+        "target": "http://152.228.163.78:3000/",
+        "secure": false
+    },
+    "/account":{
+        "target": "http://152.228.163.78:3000/",
+        "secure": false
+    }
+}

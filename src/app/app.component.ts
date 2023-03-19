@@ -8,13 +8,7 @@ import { ApiService } from './api.service';
   
 })
 export class AppComponent {
-  users: any;
 
   constructor(private apiService: ApiService) {}
 
-  ngOnInit() {
-    this.apiService.getApi().subscribe(data => {
-      this.users = data;
-    });
-  }
 }

@@ -1,13 +1,31 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
+interface LoginResponse {
+  token: string;
+}
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  protected apiUrl = "http://152.228.163.78:3000/api"
-  constructor(private http: HttpClient) { }
-  getApi() {
-    return this.http.get(this.apiUrl);
+  constructor(private http: HttpClient) {
+  }
+
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
+
+  getUsers() {
+    return this.http.get("/user/20", this.httpOptions);
+  }
+
+  createUser(user: any) {
+    return this.http.post("/auth/register", user, this.httpOptions)
+  }
+  
+  login(formData: any){
+    return this.http.post<LoginResponse>(`/login`, formData, this.httpOptions);
   }
 }

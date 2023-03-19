@@ -2,9 +2,8 @@ import { Component } from '@angular/core';
 import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
 
-interface FormData {
-  email: string;
-  password: string;
+interface LoginResponse {
+  token: string;
 }
 
 @Component({
@@ -13,21 +12,27 @@ interface FormData {
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
+  email = '';
+  password = '';
+
   constructor(private router: Router, private apiService: ApiService) {}
 
-  onSubmit(formData: FormData) {
-    const email = formData.email;
-    const password = formData.password;
+  onSubmit() {
+    const loginFormData = {
+      email: this.email,
+      password: this.password,
+    };
 
-    // Appel de l'API pour enregistrer les données dans la base de données
-    this.apiService.getApi().subscribe((data) => {
-      console.log(data);
-      // Si l'inscription a réussi, on connecte l'utilisateur automatiquement
-      this.apiService.getApi().subscribe((data) => {
-        console.log(data);
-        // Faire quelque chose après la connexion réussie, par exemple rediriger l'utilisateur vers une autre page
+    this.apiService.login(loginFormData).subscribe(
+      (response: LoginResponse) => {
+        console.log(response);
+        const token = response.token;
+        localStorage.setItem('token', token);
         this.router.navigate(['/account']);
-      });
-    });
+      },
+      (error) => {
+        console.log('Login failed', error);
+      }
+    );;
   }
 }

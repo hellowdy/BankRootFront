@@ -1,30 +1,32 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
 
-interface FormData {
-  nom: string;
-  prenom: string;
-  email: string;
-  password: string;
-}
+
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
+
 export class RegisterComponent {
   constructor(private apiService: ApiService) {}
 
-  onSubmit(formData: FormData) {
+  form = new FormGroup({
+    "firstname": new FormControl("", Validators.required),
+    "lastname": new FormControl("", Validators.required),
+    "email": new FormControl("", Validators.required),
+    "password": new FormControl("", Validators.required),
+  });
 
-    const nom = formData.nom;
-    const prenom = formData.prenom;
-    const email = formData.email;
-    const password = formData.password;
-
-    this.apiService.getApi().subscribe((data) => {
-      console.log(data);
-      
-    })
+  onSubmit(){
+    const user = {
+      name: this.form.value.firstname,
+      lastname: this.form.value.lastname,
+      mail: this.form.value.email,
+      password: this.form.value.password
+    }
+    this.apiService.createUser(JSON.stringify(user)).subscribe((response) => console.log(response));
   }
 }
