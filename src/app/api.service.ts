@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
+interface LoginResponse {
+  token: string;
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -15,10 +18,14 @@ export class ApiService {
   };
 
   getUsers() {
-    return this.http.get("/user", this.httpOptions);
+    return this.http.get("/user/20", this.httpOptions);
   }
 
   createUser(user: any) {
     return this.http.post("/auth/register", user, this.httpOptions)
+  }
+  
+  login(formData: any){
+    return this.http.post<LoginResponse>(`/login`, formData, this.httpOptions);
   }
 }
