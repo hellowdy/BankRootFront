@@ -18,7 +18,7 @@ export class ApiService {
   };
 
   getUsers() {
-    return this.http.get("/user/20", this.httpOptions);
+    return this.http.get("/user", this.httpOptions);
   }
 
   createUser(user: any) {

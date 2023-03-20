@@ -14,15 +14,15 @@ export class RegisterComponent {
   constructor(private apiService: ApiService) {}
 
   form = new FormGroup({
-    "firstname": new FormControl("", Validators.required),
-    "lastname": new FormControl("", Validators.required),
-    "email": new FormControl("", Validators.required),
-    "password": new FormControl("", Validators.required),
+    name: new FormControl("", Validators.required),
+    lastname: new FormControl("", Validators.required),
+    email: new FormControl("", Validators.required),
+    password: new FormControl("", Validators.required),
   });
 
   onSubmit(){
     const user = {
-      name: this.form.value.firstname,
+      name: this.form.value.name,
       lastname: this.form.value.lastname,
       mail: this.form.value.email,
       password: this.form.value.password
