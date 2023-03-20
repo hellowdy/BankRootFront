@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ApiService } from '../api.service';
+import { ApiService } from '../_services/api.service';
 
 
 
