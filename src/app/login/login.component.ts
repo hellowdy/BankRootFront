@@ -1,38 +1,48 @@
-import { Component } from '@angular/core';
-import { ApiService } from '../api.service';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../_services/auth.service';
+import { StorageService } from '../_services/storage.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
-interface LoginResponse {
-  token: string;
-}
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent {
-  email = '';
-  password = '';
+export class LoginComponent implements OnInit {
+  
+  isLoggedIn = false;
+  errorMessage = '';
 
-  constructor(private router: Router, private apiService: ApiService) {}
+  constructor(
+    private authService: AuthService,
+    private storageService: StorageService,
+    private router: Router,
+  ) {}
 
-  onSubmit() {
-    const loginFormData = {
-      email: this.email,
-      password: this.password,
-    };
+  ngOnInit(): any {
+    if (this.storageService.isLoggedIn()) {
+      this.isLoggedIn = true;
+      return this.router.navigateByUrl('/account');
+    }
+  }
+  
+  form = new FormGroup({
+    mail: new FormControl("", Validators.required),
+    password: new FormControl("", Validators.required),
+  });
 
-    this.apiService.login(loginFormData).subscribe(
-      (response: LoginResponse) => {
-        console.log(response);
-        const token = response.token;
-        localStorage.setItem('token', token);
-        this.router.navigate(['/account']);
+   onSubmit() { 
+    const { mail, password } = this.form.value;
+    this.authService.login( mail || '', password || '').subscribe({
+      next: data => {
+        this.storageService.saveUser(data);
+        this.router.navigateByUrl('/account');
+        // this.isLoggedIn = true;
       },
-      (error) => {
-        console.log('Login failed', error);
+      error: err => {
+        this.errorMessage = err.error.message;
       }
-    );;
+    });
   }
 }
