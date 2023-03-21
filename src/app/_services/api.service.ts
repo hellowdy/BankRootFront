@@ -25,7 +25,7 @@ export class ApiService {
     return this.http.post("/auth/register", user, this.httpOptions)
   }
   
-  login(formData: any){
-    return this.http.post<LoginResponse>(`/login`, formData, this.httpOptions);
-  }
+  // login(formData: any){
+  //   return this.http.post<LoginResponse>(`/login`, formData, this.httpOptions);
+  // }
 }
