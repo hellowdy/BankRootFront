@@ -10,10 +10,12 @@ export class AccountComponent implements OnInit {
   user: any;
 
   constructor(private apiService: ApiService) {}
-  ngOnInit(): void {
-      this.apiService.getUsers().subscribe((data) => {
-        this.user = data;
-        console.log(data); 
-      })
+  ngOnInit(){
+   this.apiService.getProfile().subscribe((userData) => {
+    this.apiService.getUserById(Object(userData)['sub']).subscribe((data) => {
+      this.user = data;
+      console.log(userData);
+   }) 
+  })   
   }
 }

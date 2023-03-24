@@ -56,14 +56,23 @@
                 <div class="grid gap-6 mt-8 sm:grid-cols-2 border-2 border-black py-8">
                     <div class="flex items-center text-gray-800 -px-3 dark:text-gray-200">
                         <span class="mx-3">Firstname :</span>
+                        <ng-container *ngIf="user">
+                            <p class="text-base font-medium text-navy-700">{{ user.name }}</p>
+                        </ng-container>
                     </div>
 
                     <div class="flex items-center text-gray-800 -px-3 dark:text-gray-200">
                         <span class="mx-3">Lastname :</span>
+                        <ng-container *ngIf="user">
+                            <p class="text-base font-medium text-navy-700">{{ user.lastname }}</p>
+                        </ng-container>
                     </div>
 
                     <div class="flex items-center text-gray-800 -px-3 dark:text-gray-200">
-                        <span class="mx-3">Email address :</span>
+                        <span class="mx-3">Email:</span>
+                        <ng-container *ngIf="user">
+                            <p class="text-base font-medium text-navy-700">{{ user.mail }}</p>
+                        </ng-container>
                     </div>
                     <div class="flex items-center text-gray-800 -px-3 dark:text-gray-200">
                         
