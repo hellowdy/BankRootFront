@@ -37,8 +37,7 @@ export class LoginComponent implements OnInit {
     this.authService.login( mail || '', password || '').subscribe({
       next: data => {
         this.storageService.saveUser(data);
-        this.router.navigateByUrl('/account');
-        // this.isLoggedIn = true;
+        this.router.navigateByUrl('/account');       
       },
       error: err => {
         this.errorMessage = err.error.message;
