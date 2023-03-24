@@ -11,13 +11,13 @@ import { TransactionComponent } from './transaction/transaction.component';
 import { AccountComponent } from './account/account.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { authInterceptorProviders } from './_helpers/auth.interceptor';
+import { httpInterceptorProvider } from './_helpers';
 
 
 @NgModule({
   declarations: [AppComponent, RegisterComponent, HomeComponent, LoginComponent, DashboardComponent, TransactionComponent, AccountComponent, NavbarComponent],
   imports: [BrowserModule, HttpClientModule, AppRoutingModule, ReactiveFormsModule, FormsModule, ReactiveFormsModule],
-  providers: [authInterceptorProviders],
+  providers: [httpInterceptorProvider],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
